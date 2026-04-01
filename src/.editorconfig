@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# ============================================
+# TurtleBot3 Gazebo headless launch for WSL2/Docker
+# ============================================
+
+set -e  # exit on any error
+
+# --- Step 0: Environment setup ---
+echo "[INFO] Sourcing ROS2 Humble..."
+source /opt/ros/humble/setup.bash
+
+# Optional: if you built your workspace
+if [ -f /root/tbot3_ws/install/setup.bash ]; then
+    source /root/tbot3_ws/install/setup.bash
+fi
+
+# --- Step 1: Setup X11 (for RViz if needed) ---
+# Only needed if you want GUI tools like RViz; otherwise headless is fine
+export DISPLAY=$(grep -oP "(?<=nameserver ).*" /etc/resolv.conf):0
+export LIBGL_ALWAYS_INDIRECT=1
+
+# --- Step 2: Ensure all Gazebo ROS dependencies are installed ---
+echo "[INFO] Installing Gazebo ROS dependencies..."
+apt update && apt install -y \
+    ros-humble-gazebo-ros-pkgs \
+    ros-humble-gazebo-ros2-control \
+    x11-apps \
+    mesa-utils
+
+# --- Step 3: Kill old Gazebo processes ---
+echo "[INFO] Killing old Gazebo processes..."
+pkill -f gzserver || true
+pkill -f gzclient || true
+
+# --- Step 4: Delete existing entities in Gazebo ---
+echo "[INFO] Removing existing TurtleBot3 entities..."
+ros2 service call /delete_entity gazebo_msgs/srv/DeleteEntity "{name: 'burger'}" || true
+
+# --- Step 5: Launch TurtleBot3 Gazebo headless ---
+echo "[INFO] Launching TurtleBot3 in Gazebo (headless)..."
+ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py \
+    world:=/root/tbot3_ws/worlds/basic_obstacles.world \
+    gui:=false

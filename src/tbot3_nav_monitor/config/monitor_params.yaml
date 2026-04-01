@@ -1,0 +1,15 @@
+performance_monitor:
+  ros__parameters:
+    navigate_action_name: "navigate_to_pose"
+    metrics_topic: "/tbot3_nav_monitor/metrics"
+    diagnostics_topic: "/tbot3_nav_monitor/diagnostics"
+    markers_topic: "/tbot3_nav_monitor/markers"
+
+    # Fictional battery consumption model
+    battery_units_per_meter: 0.05
+
+    # Alert thresholds (single-goal evaluation)
+    recovery_frequency_per_sec_high: 0.25
+    navigation_accuracy_m_poor: 0.5
+    obstacle_avoidance_efficiency_low_acceptable: 1.2
+

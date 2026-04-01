@@ -1,0 +1,7 @@
+data_logger:
+  ros__parameters:
+    metrics_topic: "/tbot3_nav_monitor/metrics"
+    output_csv: "/root/tbot3_ws/data/navigation_metrics.csv"
+    diagnostics_topic: "/tbot3_nav_monitor/data_logger_diagnostics"
+    flush_each_row: true
+

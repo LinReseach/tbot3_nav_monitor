@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  turtlebot3_nav_monitor:
+    build: .
+    image: tbot3_nav_monitor:latest
+    container_name: tbot3_nav_monitor
+    privileged: true
+    environment:
+      - DISPLAY=${DISPLAY}
+      - TURTLEBOT3_MODEL=burger
+      - ROS_DOMAIN_ID=30
+    ports:
+      - "8765:8765"
+    volumes:
+      - ./src:/root/tbot3_ws/src
+      - ./scripts:/root/tbot3_ws/scripts:ro
+      - ./data:/root/tbot3_ws/data
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      # Live-edit overrides: changes to these host folders are visible inside
+      # the container immediately without a rebuild.
+      - ./src/tbot3_nav_monitor/launch:/root/tbot3_ws/install/tbot3_nav_monitor/share/tbot3_nav_monitor/launch
+      - ./src/tbot3_nav_monitor/worlds:/root/tbot3_ws/install/tbot3_nav_monitor/share/tbot3_nav_monitor/worlds
+      - ./src/tbot3_nav_monitor/maps:/root/tbot3_ws/install/tbot3_nav_monitor/share/tbot3_nav_monitor/maps
+      - ./src/tbot3_nav_monitor/config:/root/tbot3_ws/install/tbot3_nav_monitor/share/tbot3_nav_monitor/config
+    network_mode: host
+    stdin_open: true
+    tty: true

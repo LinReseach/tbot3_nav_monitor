@@ -1,0 +1,28 @@
+adaptive_controller:
+  ros__parameters:
+    metrics_topic: "/tbot3_nav_monitor/metrics"
+    rolling_window_size: 10
+    min_adjust_interval_sec: 2.0
+
+    # Thresholds used for rolling averages
+    recovery_frequency_per_sec_high: 0.25
+    navigation_accuracy_m_poor: 0.5
+    obstacle_avoidance_efficiency_low_acceptable: 1.2
+
+    # Nav2 node names (common defaults in TurtleBot3 Nav2 deployments)
+    controller_node_name: "controller_server"
+    planner_node_name: "planner_server"
+    local_costmap_node_name: "local_costmap"
+
+    # Adaptive action values
+    reduced_max_vel_x: 0.2
+    reduced_max_vel_theta: 0.2
+
+    increased_xy_goal_tolerance: 0.3
+    increased_yaw_goal_tolerance: 0.3
+
+    # Conservative planning/costmap adjustments
+    conservative_inflation_radius: 0.6
+    conservative_cost_scaling_factor: 10.0
+    conservative_planning_time_sec: 5.0
+

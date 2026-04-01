@@ -9,8 +9,8 @@ A ROS 2 Humble package that continuously monitors TurtleBot3 navigation performa
 
 ![demo](demo/demo_gif.gif)
 
-\*Full 5-minute demo: https://drive.google.com/file/d/12-QMf5718GcYmyko6j2Z\_BnTYTpHJieW/view?usp=sharing
-
+\*Full 5-minute demo: 
+https://drive.google.com/file/d/12-QMf5718GcYmyko6j2Z_BnTYTpHJieW/view?usp=sharing
 
 
 \---
